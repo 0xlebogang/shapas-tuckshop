@@ -1,0 +1,27 @@
+{
+	"name": "@repo/vitest",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"scripts": {
+		"dev": "tsc --watch",
+		"build": "tsc",
+		"lint": "biome check",
+		"lint:fix": "biome check --fix --unsafe",
+		"clean": "rm -rf dist coverage .turbo",
+		"collect-json-reports": "node dist/scripts/collect-json-outputs.js",
+		"merge-json-reports": "nyc merge coverage/raw coverage/merged/merged-coverage.json",
+		"report": "nyc report -t coverage/merged --report-dir coverage/report --reporter=html --exclude-after-remap false",
+		"view-report": "open coverage/report/index.html",
+		"prepare": "pnpm build"
+	},
+	"devDependencies": {
+		"@repo/biome": "workspace:*",
+		"@repo/tsconfig": "workspace:*",
+		"glob": "^13.0.2",
+		"nyc": "^17.1.0"
+	}
+}
