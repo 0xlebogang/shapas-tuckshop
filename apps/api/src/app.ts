@@ -1,3 +1,5 @@
+import "dotenv/config";
+import { auth } from "@repo/better-auth";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
@@ -21,6 +23,8 @@ hono.get("/health", (c) => {
 		timestamp: new Date().toISOString(),
 	});
 });
+
+hono.on(["POST", "GET"], "/auth/*", (c) => auth.handler(c.req.raw));
 
 export default hono;
 export type AppType = typeof hono;
