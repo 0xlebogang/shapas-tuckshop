@@ -4,12 +4,12 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 export const auth = betterAuth({
 	appName: "Shapas",
-	baseURL: process.env.BASE_URL || "http://localhost:5000",
+	baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000",
 	basePath: "/auth",
 	secret: process.env.BETTER_AUTH_SECRET as string,
-	trustedOrigins: process.env.CORS_ALLOWED_ORIGINS
-		? process.env.CORS_ALLOWED_ORIGINS.split(",")
-		: ["http://localhost:3000"],
+	trustedOrigins: process.env.CORS_ALLOWED_ORIGINS?.split(",") || [
+		"http://localhost:3000",
+	],
 
 	database: drizzleAdapter(db, {
 		provider: "pg",
