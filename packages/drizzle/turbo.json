@@ -2,7 +2,9 @@
 	"$schema": "../../node_modules/turbo/schema.json",
 	"extends": ["//"],
 	"tasks": {
-		"db:start": {},
+		"db:start": {
+			"cache": false
+		},
 		"db:push": {},
 		"db:generate": {},
 		"db:migrate": {
