@@ -32,7 +32,6 @@ export default function SignUp() {
 		});
 
 		if (error) {
-			console.log(error);
 			toast.error(`Sign up failed: ${error.message}`);
 			reset();
 			return;

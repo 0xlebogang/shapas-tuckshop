@@ -2,23 +2,43 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { RedirectType, redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInSchema } from "@/lib/validation/auth";
+import { authClient } from "@/lib/auth-client";
+import {
+	type SignIn as SignInSchema,
+	signInSchema,
+} from "@/lib/validation/auth";
 
 export default function SignIn() {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm({
 		resolver: zodResolver(signInSchema),
 	});
 
-	async function onSubmit(data: unknown) {
-		console.log(data);
+	async function onSubmit(payload: SignInSchema) {
+		const { data, error } = await authClient.signIn.email({
+			email: payload.email,
+			password: payload.password,
+		});
+
+		if (error) {
+			toast.error(`Sign in failed: ${error.message}`);
+			reset({ password: "" });
+			return;
+		}
+
+		toast.success(`Authenticated as ${data.user.email}`);
+		reset();
+		redirect("/", RedirectType.replace);
 	}
 
 	return (
