@@ -1,14 +1,29 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signInSchema } from "@/lib/validation/auth";
 
 export default function SignIn() {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(signInSchema),
+	});
+
+	async function onSubmit(data: unknown) {
+		console.log(data);
+	}
+
 	return (
 		<form
-			action=""
+			onSubmit={handleSubmit(onSubmit)}
 			className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]"
 		>
 			<div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
@@ -22,17 +37,30 @@ export default function SignIn() {
 					<p className="text-sm">Welcome back! Sign in to continue</p>
 				</div>
 
+				{errors.root?.message && (
+					<div className="p-4 bg-destructive my-6 rounded text-forground">
+						{errors.root?.message}
+					</div>
+				)}
+
 				<div className="mt-6 space-y-6">
 					<div className="space-y-2">
 						<Label htmlFor="email" className="block text-sm">
 							Email
 						</Label>
-						<Input type="email" required name="email" id="email" />
+						<div className="flex flex-col gap-1">
+							<Input {...register("email", { required: true })} />
+							{errors.email?.message && (
+								<p className="text-xs text-destructive">
+									{errors.email.message}
+								</p>
+							)}
+						</div>
 					</div>
 
 					<div className="space-y-0.5">
 						<div className="flex items-center justify-between">
-							<Label htmlFor="pwd" className="text-sm">
+							<Label htmlFor="password" className="text-sm">
 								Password
 							</Label>
 							<Button asChild variant="link" size="sm">
@@ -44,16 +72,23 @@ export default function SignIn() {
 								</Link>
 							</Button>
 						</div>
-						<Input
-							type="password"
-							required
-							name="pwd"
-							id="pwd"
-							className="input sz-md variant-mixed"
-						/>
+						<div className="flex flex-col gap-1">
+							<Input
+								{...register("password", { required: true })}
+								type="password"
+								className="input sz-md variant-mixed"
+							/>
+							{errors.email?.message && (
+								<p className="text-xs text-destructive">
+									{errors.password?.message}
+								</p>
+							)}
+						</div>
 					</div>
 
-					<Button className="w-full">Sign In</Button>
+					<Button type="submit" className="w-full">
+						Sign In
+					</Button>
 				</div>
 
 				<div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
