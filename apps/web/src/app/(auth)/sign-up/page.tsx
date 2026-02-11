@@ -13,12 +13,14 @@ export default function SignUp() {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm({
 		resolver: zodResolver(signUpSchema),
 	});
 
 	async function onSubmit(data: unknown) {
 		console.log(data);
+		reset();
 	}
 
 	return (
