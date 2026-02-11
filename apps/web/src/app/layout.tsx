@@ -1,5 +1,6 @@
 import Providers from "@/components/providers";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
 	children,
@@ -9,7 +10,10 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body>
-				<Providers>{children}</Providers>
+				<Providers>
+					{children}
+					<Toaster closeButton position="bottom-right" />
+				</Providers>
 			</body>
 		</html>
 	);

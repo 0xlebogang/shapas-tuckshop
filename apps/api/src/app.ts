@@ -12,8 +12,9 @@ hono.use(
 	cors({
 		credentials: true,
 		allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-		origin:
-			process.env.NODE_ENV !== "production" ? "*" : "http://localhost:3000",
+		origin: process.env.CORS_ALLOWED_ORIGINS?.split(",") || [
+			"http://localhost:3000",
+		],
 	}),
 );
 

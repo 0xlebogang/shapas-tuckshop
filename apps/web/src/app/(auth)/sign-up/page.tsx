@@ -2,11 +2,17 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { RedirectType, redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signUpSchema } from "@/lib/validation/auth";
+import { authClient } from "@/lib/auth-client";
+import {
+	type SignUp as SignUpSchema,
+	signUpSchema,
+} from "@/lib/validation/auth";
 
 export default function SignUp() {
 	const {
@@ -18,9 +24,21 @@ export default function SignUp() {
 		resolver: zodResolver(signUpSchema),
 	});
 
-	async function onSubmit(data: unknown) {
-		console.log(data);
-		reset();
+	async function onSubmit(payload: SignUpSchema) {
+		const { error } = await authClient.signUp.email({
+			name: payload.name,
+			email: payload.email,
+			password: payload.confirmPassword,
+		});
+
+		if (error) {
+			console.log(error);
+			toast.error(`Sign up failed: ${error.message}`);
+			reset();
+			return;
+		}
+
+		redirect("/", RedirectType.replace);
 	}
 
 	return (

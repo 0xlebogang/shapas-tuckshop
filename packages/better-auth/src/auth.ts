@@ -14,4 +14,11 @@ export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: "pg",
 	}),
+
+	emailAndPassword: {
+		enabled: true,
+		minPasswordLength: 6,
+	},
 });
+
+export type { Session, User } from "better-auth";
