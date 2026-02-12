@@ -213,6 +213,18 @@ importers:
         specifier: ^0.31.9
         version: 0.31.9
 
+  packages/storage:
+    devDependencies:
+      '@repo/biome':
+        specifier: workspace:*
+        version: link:../biome
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../typescript
+      '@repo/vitest':
+        specifier: workspace:*
+        version: link:../vitest
+
   packages/typescript:
     devDependencies:
       '@repo/biome':
