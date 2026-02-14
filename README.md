@@ -1,63 +1,36 @@
-<div align='center'>
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# Shapas
+## Getting Started
 
-A simple order management system for tuckshops.
+First, run the development server:
 
-</div>
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-> This project is currently in active development. Changes are expected to be frequent.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Prerequisites
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- Nodejs (v20.9+)
-- PNPM (v10.28.0)
-- Docker/Docker Desktop (latest stable version)
-- Git (Any stable version)
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Getting started
+## Learn More
 
-To get the project up and running for development:
+To learn more about Next.js, take a look at the following resources:
 
-> Have a look at the [contributing guidline](./CONTRIBUTING.md) for more detailed docs of the structure and procedures in the repo.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-1. Clone the repo
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-	```bash
-	git clone https://github.com/0xlebogang/shapas-tuckshopt.git shapas
-	cd shapas
-	```
+## Deploy on Vercel
 
-2. Install project dependencies
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-	```bash
-	pnpm install
-	```
-
-3. Setup environment variables
-
-	> There is a [helper script](./scripts/setup-env-files.js) that will create copies of the `.env.example` files and name them `.env`
-	>
-	> Be sure to run this script from the root of the project (same directory as `pnpm-lock.yaml`)
-
-	```bash
-	node scripts/setup-env-files.js
-	```
-
-4. Run the database server
-
-	```bash
-	pnpm turbo db:start
-	```
-
-5. Push the existing databse schema
-
-	```bash
-	pnpm turbo db:push
-	```
-
-6. Run all dev servers
-
-	```bash
-	pnpm dev
-	```
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

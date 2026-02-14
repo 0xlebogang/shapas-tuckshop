@@ -1,11 +1,51 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"root": true,
-	"extends": ["@repo/biome"],
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
-		"defaultBranch": "main",
 		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"**",
+			"!node_modules",
+			"!.next",
+			"!.github",
+			"!.husky",
+			"!.changesets",
+			"!public"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab"
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"suspicious": {
+				"noUnknownAtRules": "off"
+			}
+		},
+		"domains": {
+			"next": "recommended",
+			"react": "recommended"
+		}
+	},
+	"css": {
+		"parser": {
+			"allowWrongLineComments": true,
+			"tailwindDirectives": true
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	}
 }

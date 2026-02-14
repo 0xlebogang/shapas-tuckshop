@@ -1,14 +1,7 @@
-packages:
-  - apps/*
-  - packages/*
-
-catalog:
-  zod: ^4.3.6
-
 ignoredBuiltDependencies:
-  - '@prisma/client'
-  - better-sqlite3
+  - msw
+  - sharp
+  - unrs-resolver
 
 onlyBuiltDependencies:
   - esbuild
-  - sharp
