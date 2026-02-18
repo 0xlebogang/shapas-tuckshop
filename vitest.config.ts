@@ -6,6 +6,7 @@ const vitestConfig = defineConfig({
 		coverage: {
 			enabled: true,
 			provider: "istanbul",
+			reporter: ["text", "json", "json-summary", "lcov"],
 		},
 		setupFiles: ["./vitest.setup.tsx"],
 	},

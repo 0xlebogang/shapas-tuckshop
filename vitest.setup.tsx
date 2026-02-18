@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
+import { type RenderOptions, render } from "@testing-library/react";
 import type * as React from "react";
-import { render, type RenderOptions } from "@testing-library/react";
 import Providers from "@/components/providers";
 
 const AllProviders = ({ children }: { children: React.ReactNode }) => {
