@@ -47,5 +47,13 @@
 				"organizeImports": "on"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["**/components/ui/**", "**/convex/_generated/**"],
+			"linter": {
+				"enabled": false
+			}
+		}
+	]
 }
