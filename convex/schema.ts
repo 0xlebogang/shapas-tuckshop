@@ -13,7 +13,7 @@ const schema = defineSchema({
 		phoneVerificationTime: v.optional(v.number()),
 		isAnonymous: v.optional(v.boolean()),
 		role: v.optional(v.union(v.literal("admin"), v.literal("staff"))),
-	}),
+	}).index("email", ["email"]),
 });
 
 export default schema;

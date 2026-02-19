@@ -4,8 +4,6 @@ import "@/lib/env/client";
 import { env } from "@/lib/env/server";
 
 const nextConfig: NextConfig = {
-	reactCompiler: true,
-
 	// Set 'output' and 'transpilePackages' when 'DOCKER_IMAGE' is enabled.
 	...(env.DOCKER_IMAGE
 		? {
