@@ -54,5 +54,5 @@ A simple order management system built specically for tuckshops. You could proba
 ---
 
 <div align='center'>
-	<small>Built by [Lebogang Phoshoko](https://lebophoshoko.dedyn.io)
+	<small>Built by <a href='https://lebophoshoko.dedyn.io'>Lebogang Phoshoko</a></small>
 </div>
