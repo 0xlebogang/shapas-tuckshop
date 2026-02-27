@@ -4,6 +4,8 @@
 
 A simple order management system built specically for tuckshops. You could probably use this if you are selling any goods.
 
+</div>
+
 ## Development setup
 
 ### Prerequisites
