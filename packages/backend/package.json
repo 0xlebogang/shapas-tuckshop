@@ -7,7 +7,8 @@
 		"build": "go build -o ./build/main ./cmd/main",
 		"test": "go test ./...",
 		"lint": "golangci-lint ./...",
-		"migrate": "go run ./cmd/migrations"
+		"migrate": "go run ./cmd/migrations",
+		"install": "go mod tidy"
 	},
 	"devDependencies": {
 		"@repo/biome": "workspace:*"
