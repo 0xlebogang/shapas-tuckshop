@@ -1,0 +1,30 @@
+{
+	"$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+	"root": false,
+	"extends": "//",
+	"linter": {
+		"domains": {
+			"next": "recommended",
+			"react": "recommended"
+		},
+		"rules": {
+			"suspicious": {
+				"noUnknownAtRules": "off"
+			}
+		}
+	},
+	"css": {
+		"parser": {
+			"allowWrongLineComments": true,
+			"tailwindDirectives": true
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/components/ui/**", "**/*.test.ts", "**/*.test.tsx"],
+			"linter": {
+				"enabled": false
+			}
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"name": "@repo/biome",
+	"version": "0.0.0",
+	"private": true,
+	"exports": {
+		".": "./base.json"
+	},
+	"scripts": {
+		"lint:fix": "biome format --write"
+	}
+}

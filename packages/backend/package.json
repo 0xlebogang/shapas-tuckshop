@@ -1,0 +1,15 @@
+{
+	"name": "backend",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "air",
+		"build": "go build -o ./build/main ./cmd/main",
+		"test": "go test ./...",
+		"lint": "golangci-lint ./...",
+		"migrate": "go run ./cmd/migrations"
+	},
+	"devDependencies": {
+		"@repo/biome": "workspace:*"
+	}
+}
