@@ -43,7 +43,13 @@ A simple order management system built specically for tuckshops. You could proba
 	node ./scripts/setup-env-files.js
 	```
 
-4. Run all servers
+4. Start external services required for development
+
+	```bash
+	docker compose -f compose.dev.yml up -d
+	```
+
+4. Start all dev servers
 
 	```bash
 	pnpm run dev
