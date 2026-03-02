@@ -7,7 +7,7 @@ import (
 
 func Connect(connectionString string) (*gorm.DB, error) {
 	dialctor := postgres.Open(connectionString)
-	return gorm.Open(dialctor, &gorm.Config{})
+	return gorm.Open(dialctor, &gorm.Config{TranslateError: true})
 }
 
 func Close(db *gorm.DB) {

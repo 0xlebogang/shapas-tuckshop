@@ -9,8 +9,5 @@
 		"lint": "golangci-lint ./...",
 		"migrate": "go run ./cmd/migrations",
 		"install": "go mod tidy"
-	},
-	"devDependencies": {
-		"@repo/biome": "workspace:*"
 	}
 }

@@ -27,11 +27,7 @@ importers:
         specifier: ^2.8.11
         version: 2.8.11
 
-  packages/backend:
-    devDependencies:
-      '@repo/biome':
-        specifier: workspace:*
-        version: link:../../tools/biome
+  packages/backend: {}
 
   packages/frontend:
     dependencies:
