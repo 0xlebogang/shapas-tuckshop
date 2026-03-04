@@ -1,21 +1,24 @@
 package database
 
 import (
+	"log"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func Connect(connectionString string) (*gorm.DB, error) {
-	dialctor := postgres.Open(connectionString)
-	return gorm.Open(dialctor, &gorm.Config{TranslateError: true})
+	dialector := postgres.Open(connectionString)
+	return gorm.Open(dialector, &gorm.Config{TranslateError: true})
 }
 
 func Close(db *gorm.DB) {
 	sqlDB, err := db.DB()
 	if err != nil {
-		panic("Failed to get active database connection")
+		log.Fatal("Failed to get active database connection")
 	}
-	if err := sqlDB.Close(); err != nil {
-		panic("Failed to close active database connection")
+	err = sqlDB.Close()
+	if err != nil {
+		log.Fatal("Failed close active database connection")
 	}
 }

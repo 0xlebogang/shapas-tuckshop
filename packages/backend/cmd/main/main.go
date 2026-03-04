@@ -3,13 +3,13 @@ package main
 import (
 	"log"
 
-	"github.com/0xlebogang/shapas/backend/internal/config"
-	"github.com/0xlebogang/shapas/backend/internal/database"
-	"github.com/0xlebogang/shapas/backend/internal/server"
+	"github.com/0xlebogang/shapas/internal/config"
+	"github.com/0xlebogang/shapas/internal/database"
+	"github.com/0xlebogang/shapas/internal/server"
 )
 
 func main() {
-	config := config.LoadEnv()
+	config := config.LoadConfig()
 
 	db, err := database.Connect(config.DatabaseUrl)
 	if err != nil {
@@ -17,8 +17,8 @@ func main() {
 	}
 	defer database.Close(db)
 
-	server := server.New(config, db)
-	if err := server.Start(); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
+	svr := server.New(config, db)
+	if err := svr.Start(); err != nil {
+		log.Fatalf("Failed to start server")
 	}
 }
