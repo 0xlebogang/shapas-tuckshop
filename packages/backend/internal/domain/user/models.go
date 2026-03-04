@@ -12,7 +12,7 @@ type User struct {
 	Name     *string `json:"name" gorm:"type:varchar(255)" binding:"omitempty,min=2,max=255"`
 	Avatar   *string `json:"avatar" gorm:"type:text" binding:"omitempty,url"`
 	Password *string `json:"password" gorm:"type:text" binding:"omitempty,min=6"`
-	Role     *string `json:"role" gorm:"type:varchar(50)" binding:"omitempty,min=2,max=50"`
+	Role     string  `json:"role" gorm:"type:varchar(50);default:'user';not null" binding:"omitempty,min=2,max=50"`
 }
 
 type UserResponse struct {
@@ -20,7 +20,7 @@ type UserResponse struct {
 	Email     string    `json:"email"`
 	Name      *string   `json:"name"`
 	Avatar    *string   `json:"avatar"`
-	Role      *string   `json:"role"`
+	Role      string    `json:"role"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

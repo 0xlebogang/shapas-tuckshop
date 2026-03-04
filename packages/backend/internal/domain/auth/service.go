@@ -9,15 +9,15 @@ import (
 )
 
 type Service struct {
-	factory *token.Factory
-	repo    *user.Repository
+	tokenFactory *token.Factory
+	repo         *user.Repository
 }
 
-func NewService(factory *token.Factory) *Service {
-	return &Service{factory: factory}
+func NewService(factory *token.Factory, repo *user.Repository) *Service {
+	return &Service{tokenFactory: factory, repo: repo}
 }
 
-func (s *Service) Authenticate(json *RequestBody) (*map[string]string, error) {
+func (s *Service) Authenticate(json *RequestBody) (*AuthTokens, error) {
 	user, err := s.repo.GetUserByEmail(json.Email)
 	if err != nil {
 		return nil, err
@@ -27,24 +27,24 @@ func (s *Service) Authenticate(json *RequestBody) (*map[string]string, error) {
 		return nil, err
 	}
 
-	var tokens map[string]string
-
-	accessToken, err := s.factory.CreateToken(user.ID, user.Email, *user.Role, 60*time.Minute)
+	accessToken, err := s.tokenFactory.CreateToken(user.ID, user.Email, user.Role, 60*time.Minute)
 	if err != nil {
 		return nil, err
 	}
 
-	refreshToken, err := s.factory.CreateToken(user.ID, user.Email, *user.Role, 24*time.Hour)
+	refreshToken, err := s.tokenFactory.CreateToken(user.ID, user.Email, user.Role, 24*time.Hour)
 	if err != nil {
 		return nil, err
 	}
 
-	tokens["access_token"] = accessToken
-	tokens["refresh_token"] = refreshToken
+	tokens := AuthTokens{
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+	}
 
 	return &tokens, nil
 }
 
 func (s *Service) VerifyToken(tokenString string) (*token.UserClaims, error) {
-	return s.factory.VerifyToken(tokenString)
+	return s.tokenFactory.VerifyToken(tokenString)
 }

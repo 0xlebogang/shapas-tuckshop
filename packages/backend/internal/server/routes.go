@@ -1,18 +1,22 @@
 package server
 
 import (
+	"github.com/0xlebogang/shapas/internal/config"
+	"github.com/0xlebogang/shapas/internal/domain/auth"
 	"github.com/0xlebogang/shapas/internal/domain/user"
+	"github.com/0xlebogang/shapas/internal/token"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 type Routes struct {
-	router *gin.Engine
+	config *config.Config
 	db     *gorm.DB
+	router *gin.Engine
 }
 
-func NewRoutes(router *gin.Engine, db *gorm.DB) *Routes {
-	return &Routes{router: router, db: db}
+func NewRoutes(config *config.Config, db *gorm.DB, router *gin.Engine) *Routes {
+	return &Routes{config: config, db: db, router: router}
 }
 
 func (r *Routes) SetupUserRoutes() {
@@ -21,4 +25,13 @@ func (r *Routes) SetupUserRoutes() {
 	userCtrl := user.NewController(userService)
 
 	user.RegisterUserRoute(r.router, userCtrl)
+}
+
+func (r *Routes) SetupAuthRoutes() {
+	userRepo := user.NewRepository(r.db)
+	tokenFactory := token.NewFactory(r.config.JWTSecret)
+	authService := auth.NewService(tokenFactory, userRepo)
+	authCtrl := auth.NewController(authService)
+
+	auth.RegisterAuthRoute(r.router, authCtrl)
 }

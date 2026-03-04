@@ -29,8 +29,9 @@ func New(config *config.Config, db *gorm.DB) *Server {
 func (s *Server) Start() error {
 	s.router.GET("/healthz", s.healthCheck())
 
-	routes := NewRoutes(s.router, s.db)
+	routes := NewRoutes(s.config, s.db, s.router)
 	routes.SetupUserRoutes()
+	routes.SetupAuthRoutes()
 
 	svr := s.createHttpServer()
 	return svr.ListenAndServe()
