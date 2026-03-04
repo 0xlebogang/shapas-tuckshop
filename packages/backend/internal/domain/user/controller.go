@@ -1,9 +1,12 @@
 package user
 
 import (
+	"errors"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type Controller struct {
@@ -19,17 +22,26 @@ func NewController(service *Service) *Controller {
 func (c *Controller) CreateUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var json User
-		_ = ctx.BindJSON(json)
+		_ = ctx.BindJSON(&json)
 
 		user, err := c.service.CreateUser(&json)
 		if err != nil {
+			if errors.Is(err, gorm.ErrDuplicatedKey) {
+				ctx.JSON(http.StatusConflict, gin.H{
+					"message": "User with provided email already exists",
+				})
+				return
+			}
+
+			log.Printf("User creation failed: %v", err)
 			ctx.JSON(http.StatusInternalServerError, gin.H{
-				"error": "Failed to create user",
+				"message": "Failed to create user",
 			})
+			return
 		}
 
-		ctx.JSON(http.StatusCreated, gin.H{
-			"user": user,
+		ctx.JSON(http.StatusOK, gin.H{
+			"user": user.ToResponse(),
 		})
 	}
 }
