@@ -17,7 +17,7 @@ func NewService(factory *token.Factory, repo *user.Repository) *Service {
 	return &Service{tokenFactory: factory, repo: repo}
 }
 
-func (s *Service) Authenticate(json *RequestBody) (*AuthTokens, error) {
+func (s *Service) Authenticate(json *AuthRequest) (*AuthTokens, error) {
 	user, err := s.repo.GetUserByEmail(json.Email)
 	if err != nil {
 		return nil, err

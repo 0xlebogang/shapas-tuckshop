@@ -20,7 +20,7 @@ func NewController(service *Service) *Controller {
 
 func (c *Controller) Authenticate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var json RequestBody
+		var json AuthRequest
 		_ = ctx.BindJSON(&json)
 
 		tokens, err := c.service.Authenticate(&json)
