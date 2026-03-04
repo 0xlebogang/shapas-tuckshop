@@ -43,7 +43,7 @@ silent = false
 time = false
 
 [misc]
-clean_on_exit = false
+clean_on_exit = true
 
 [proxy]
 app_port = 0
@@ -52,5 +52,5 @@ enabled = false
 proxy_port = 0
 
 [screen]
-clear_on_rebuild = false
-keep_scroll = true
+clear_on_rebuild = true
+keep_scroll = false
