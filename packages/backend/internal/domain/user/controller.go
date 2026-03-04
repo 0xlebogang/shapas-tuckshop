@@ -34,7 +34,7 @@ func (c *Controller) CreateUser() gin.HandlerFunc {
 				return
 			}
 
-			log.Printf("User creation failed: %v", err)
+			log.Printf("User creation failed: %v\n", err)
 			ctx.JSON(http.StatusInternalServerError, gin.H{
 				"message": "Failed to create user",
 			})
