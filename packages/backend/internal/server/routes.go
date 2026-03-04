@@ -29,8 +29,9 @@ func (r *Routes) SetupUserRoutes() {
 
 func (r *Routes) SetupAuthRoutes() {
 	userRepo := user.NewRepository(r.db)
+	authRepo := auth.NewRepository(r.db)
 	tokenFactory := token.NewFactory(r.config.JWTSecret)
-	authService := auth.NewService(tokenFactory, userRepo)
+	authService := auth.NewService(tokenFactory, userRepo, authRepo)
 	authCtrl := auth.NewController(authService)
 
 	auth.RegisterAuthRoute(r.router, authCtrl)

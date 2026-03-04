@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/0xlebogang/shapas/internal/domain/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -21,7 +22,7 @@ func NewController(service *Service) *Controller {
 
 func (c *Controller) CreateUser() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var json User
+		var json models.User
 		_ = ctx.BindJSON(&json)
 
 		user, err := c.service.CreateUser(&json)

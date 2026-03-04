@@ -17,19 +17,16 @@ func NewFactory(secretKey string) *Factory {
 	}
 }
 
-func (g *Factory) CreateToken(userID, email, role string, duration time.Duration) (string, error) {
+func (f *Factory) CreateToken(userID, sessionID string, duration time.Duration) (string, error) {
 	claims := UserClaims{
-		UserID: userID,
-		Email:  email,
-		Role:   role,
+		UserID:    userID,
+		SessionID: sessionID,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(duration)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 		},
 	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(g.secretKey)
+	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(f.secretKey)
 }
 
 func (g *Factory) VerifyToken(tokenString string) (*UserClaims, error) {
