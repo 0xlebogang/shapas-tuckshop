@@ -37,10 +37,14 @@ A simple order management system built specically for tuckshops. You could proba
 
 3. Create copies of all `.env.example` files and rename them to .env then populate the values as necessary
 
-	> You can use the [helper script](./scripts/setup-env-files.js)
+	> You can use the [helper script](./scripts/setup-env-files.js) to create the `.env` files and the [`generate-secret` script](./scripts/generate-secret.js) to generate a random 32-character secret key.
 
 	```bash
 	node ./scripts/setup-env-files.js
+
+	# And
+
+	node ./scripts/generate-secret.js
 	```
 
 4. Start external services required for development
