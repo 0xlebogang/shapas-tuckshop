@@ -6,9 +6,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Env struct {
+type Config struct {
 	Port        string
 	DatabaseUrl string
+	JWTSecret   string
 }
 
 func getEnv(key, fallback string) string {
@@ -18,10 +19,11 @@ func getEnv(key, fallback string) string {
 	return fallback
 }
 
-func LoadEnv() *Env {
+func LoadConfig() *Config {
 	_ = godotenv.Load()
-	return &Env{
+	return &Config{
 		Port:        getEnv("PORT", "8080"),
 		DatabaseUrl: getEnv("DATABASE_URL", "postgresql://root:password@localhost:5432/postgres"),
+		JWTSecret:   getEnv("JWT_SECRET", "your-jwt-secret"),
 	}
 }
