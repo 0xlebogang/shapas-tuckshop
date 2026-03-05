@@ -7,17 +7,17 @@ import (
 	jwt "github.com/golang-jwt/jwt/v5"
 )
 
-type Factory struct {
+type TokenFactory struct {
 	secretKey []byte
 }
 
-func NewFactory(secretKey string) *Factory {
-	return &Factory{
+func NewTokenFactory(secretKey string) *TokenFactory {
+	return &TokenFactory{
 		[]byte(secretKey),
 	}
 }
 
-func (f *Factory) CreateToken(userID, sessionID string, duration time.Duration) (string, error) {
+func (f *TokenFactory) CreateToken(userID, sessionID string, duration time.Duration) (string, error) {
 	claims := UserClaims{
 		UserID:    userID,
 		SessionID: sessionID,
@@ -29,7 +29,7 @@ func (f *Factory) CreateToken(userID, sessionID string, duration time.Duration) 
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(f.secretKey)
 }
 
-func (g *Factory) VerifyToken(tokenString string) (*UserClaims, error) {
+func (g *TokenFactory) VerifyToken(tokenString string) (*UserClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &UserClaims{}, func(t *jwt.Token) (any, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", t.Header["alg"])

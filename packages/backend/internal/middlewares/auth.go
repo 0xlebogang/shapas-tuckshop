@@ -4,18 +4,13 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/0xlebogang/shapas/internal/constants"
 	"github.com/gin-gonic/gin"
-)
-
-const (
-	AuthorizationHeaderKey  = "Authorization"
-	AuthorizationTypeBearer = "Bearer"
-	AuthorizationPayloadKey = "payload"
 )
 
 func (m *Middleware) AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		authHeader := ctx.GetHeader(AuthorizationHeaderKey)
+		authHeader := ctx.GetHeader(constants.AuthorizationHeaderKey)
 		if len(authHeader) == 0 {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"message": "Authorization header not provided",
@@ -32,7 +27,7 @@ func (m *Middleware) AuthMiddleware() gin.HandlerFunc {
 		}
 
 		authType := strings.ToLower(fields[0])
-		if authType != AuthorizationTypeBearer {
+		if authType != constants.AuthorizationTypeBearer {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"message": "Unsupported authorization type",
 			})
@@ -48,7 +43,7 @@ func (m *Middleware) AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		ctx.Set(AuthorizationPayloadKey, payload)
+		ctx.Set(constants.AuthorizationPayloadKey, payload)
 		ctx.Next()
 	}
 }

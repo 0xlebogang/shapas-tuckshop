@@ -23,3 +23,7 @@ func (s *Service) CreateUser(value *models.User) (*models.User, error) {
 	value.Password = &hashedPassword
 	return s.repo.CreateUser(value)
 }
+
+func (s *Service) GetUser(id string) (*models.User, error) {
+	return s.repo.GetUserByID(id)
+}

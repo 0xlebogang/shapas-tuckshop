@@ -23,6 +23,15 @@ func (r *Repository) CreateUser(value *models.User) (*models.User, error) {
 	return value, nil
 }
 
+func (r *Repository) GetUserByID(id string) (*models.User, error) {
+	var user models.User
+	err := r.db.Where("id = ?", id).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
 func (r *Repository) GetUserByEmail(email string) (*models.User, error) {
 	var user models.User
 	err := r.db.Where("email = ?", email).First(&user).Error

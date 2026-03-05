@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/0xlebogang/shapas/internal/config"
+	"github.com/0xlebogang/shapas/internal/middlewares"
+	"github.com/0xlebogang/shapas/internal/token"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -29,7 +31,10 @@ func New(config *config.Config, db *gorm.DB) *Server {
 func (s *Server) Start() error {
 	s.router.GET("/healthz", s.healthCheck())
 
-	routes := NewRoutes(s.config, s.db, s.router)
+	tokenFactory := token.NewTokenFactory(s.config.JWTSecret)
+	middleware := middlewares.New(tokenFactory)
+
+	routes := NewRoutes(s.config, s.db, s.router, middleware)
 	routes.SetupUserRoutes()
 	routes.SetupAuthRoutes()
 

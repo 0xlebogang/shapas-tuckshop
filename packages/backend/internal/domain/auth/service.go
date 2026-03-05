@@ -11,12 +11,12 @@ import (
 )
 
 type Service struct {
-	tokenFactory *token.Factory
+	tokenFactory *token.TokenFactory
 	userRepo     *user.Repository
 	authRepo     *Repository
 }
 
-func NewService(factory *token.Factory, userRepo *user.Repository, authRepo *Repository) *Service {
+func NewService(factory *token.TokenFactory, userRepo *user.Repository, authRepo *Repository) *Service {
 	return &Service{tokenFactory: factory, userRepo: userRepo, authRepo: authRepo}
 }
 
@@ -55,8 +55,4 @@ func (s *Service) Authenticate(json *AuthRequest) (*AuthTokens, error) {
 	}
 
 	return &tokens, nil
-}
-
-func (s *Service) VerifyToken(tokenString string) (*token.UserClaims, error) {
-	return s.tokenFactory.VerifyToken(tokenString)
 }

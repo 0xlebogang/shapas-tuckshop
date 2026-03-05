@@ -1,9 +1,13 @@
 package user
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/0xlebogang/shapas/internal/middlewares"
+	"github.com/gin-gonic/gin"
+)
 
-func RegisterUserRoute(r *gin.Engine, ctrl *Controller) {
+func Register(r *gin.Engine, ctrl *Controller, middleware *middlewares.Middleware) {
 	route := r.Group("/user")
 
 	route.POST("", ctrl.CreateUser())
+	route.GET("", middleware.AuthMiddleware(), ctrl.GetUser())
 }
