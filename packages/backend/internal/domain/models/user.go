@@ -11,7 +11,7 @@ type User struct {
 	Avatar   *string   `json:"avatar" gorm:"type:text" binding:"omitempty,url"`
 	Password *string   `json:"password" gorm:"type:text" binding:"omitempty,min=6"`
 	Role     string    `json:"role" gorm:"type:varchar(50);default:'user';not null" binding:"omitempty,min=2,max=50"`
-	Sessions []Session `json:"sessions,omitempty" gorm:"foreignKey:UserID"`
+	Sessions []Session `json:"sessions,omitempty" gorm:"foreignKey:UserID;constraint:OnDelete:CASCADE"`
 }
 
 type UserResponse struct {
